@@ -52,7 +52,17 @@ function App() {
                             currencyOptions={options}
                             onCurrencyChange={(currency) => setAmount(amount)}
                             selectCurrency={from}
-                            onAmountChange={(amount) => setAmount(amount)}
+                            onAmountChange={(amount) => {
+                                // Convert to string and remove leading zeros using regex
+                                let cleanedAmount = amount.toString().replace(/^0+/, '');
+                                
+                                // If input is empty after removing zeros, reset to '0' to avoid empty input
+                                if (cleanedAmount === '') {
+                                  cleanedAmount = '0';
+                                }
+                                
+                                setAmount(cleanedAmount);
+                              }}
                         />
                     </div>
                     <div className="relative w-full h-0.5">
